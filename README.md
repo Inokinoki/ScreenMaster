@@ -1,5 +1,7 @@
 # Screen Master
 
+[![Android CI](https://github.com/Inokinoki/ScreenMaster/actions/workflows/android-build.yml/badge.svg)](https://github.com/Inokinoki/ScreenMaster/actions/workflows/android-build.yml)
+
 A powerful Android application designed to facilitate launching applications on specific displays in multi-screen environments.
 
 ## Overview
