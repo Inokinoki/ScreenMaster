@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -35,14 +37,48 @@ fun AppListTabScreen(
     val showDisplayDialog = remember { mutableStateOf(false) }
     val selectedApp = remember { mutableStateOf<AppInfo?>(null) }
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
+    val searchQuery = remember { mutableStateOf("") }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        SwipeRefresh(
-            state = swipeRefreshState,
-            onRefresh = onRefresh,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            if (apps.isEmpty()) {
+    val filteredApps = remember(apps, searchQuery.value) {
+        if (searchQuery.value.isBlank()) {
+            apps
+        } else {
+            apps.filter { app ->
+                app.appName.contains(searchQuery.value, ignoreCase = true) ||
+                app.packageName.contains(searchQuery.value, ignoreCase = true)
+            }
+        }
+    }
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        // Search Bar
+        OutlinedTextField(
+            value = searchQuery.value,
+            onValueChange = { searchQuery.value = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            placeholder = { Text("Search apps...") },
+            leadingIcon = {
+                Icon(Icons.Default.Search, contentDescription = "Search")
+            },
+            trailingIcon = {
+                if (searchQuery.value.isNotEmpty()) {
+                    IconButton(onClick = { searchQuery.value = "" }) {
+                        Icon(Icons.Default.Clear, contentDescription = "Clear")
+                    }
+                }
+            },
+            singleLine = true
+        )
+
+        Box(modifier = Modifier.fillMaxSize()) {
+            SwipeRefresh(
+                state = swipeRefreshState,
+                onRefresh = onRefresh,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                if (filteredApps.isEmpty() && apps.isEmpty()) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -67,13 +103,35 @@ fun AppListTabScreen(
                         }
                     }
                 }
+            } else if (filteredApps.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = null,
+                            modifier = Modifier.size(48.dp),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "No apps match \"${searchQuery.value}\"",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
             } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(apps) { app ->
+                    items(filteredApps) { app ->
                         AppListCard(
                             appInfo = app,
                             onClick = {
@@ -102,6 +160,7 @@ fun AppListTabScreen(
                     showDisplayDialog.value = false
                 }
             )
+        }
         }
     }
 }
