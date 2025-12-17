@@ -10,8 +10,11 @@ ScreenMaster enables users to easily manage and launch applications across multi
 
 - **Display Discovery**: Automatically detects and lists all available displays/screens
 - **Detailed Display Information**: View resolution, refresh rate, density, and display ID for each screen
+- **Display State Monitoring**: Real-time monitoring of display power state (ON/OFF/DOZE/etc.) with color-coded indicators
+- **Screen Timeout Information**: Shows the system-wide screen timeout setting in the app bar
 - **App Launcher**: Browse all installed launchable applications
 - **Multi-Screen Support**: Launch any app on any connected display
+- **Launch Confirmation**: Toast notification confirms app launch with display name and ID
 - **Modern UI**: Built with Jetpack Compose and Material Design 3
 - **Intuitive Navigation**: Simple two-step process to launch apps on specific screens
 
@@ -41,12 +44,39 @@ The app requires the following permission:
 
 - `QUERY_ALL_PACKAGES`: Required to discover and list all installed launchable applications
 
+## Display Power Control Limitation
+
+**Important:** Android does not provide public APIs to control display power states. The `DisplayManager` class can only:
+- Monitor display state changes
+- Get display properties
+- Control brightness
+- Create virtual displays
+
+It **cannot** turn displays on or off programmatically. To control display power, you would need:
+1. Root access and shell commands
+2. System-level app with platform signature
+3. Device-specific manufacturer APIs (if available)
+
+This app **monitors** display states but does **not** control them, as this functionality is not available through Android's public API.
+
 ## How to Use
+
+### Launching Apps on Displays
 
 1. **Launch ScreenMaster**: Open the app to see the list of available displays
 2. **Select a Display**: Tap on any display card to choose it as the target screen
 3. **Choose an App**: Browse the list of installed apps and tap one to launch
-4. **App Launches**: The selected app will open on your chosen display
+4. **Confirmation**: A toast message confirms the app launch with the display name and ID
+
+### Monitoring Display State
+
+1. **View Display State**: Each display shows its current power state with color coding
+   - Blue text indicates the display is active (ON, DOZE, VR, etc.)
+   - Red text indicates the display is inactive (OFF)
+2. **Supported States**: ON, OFF, DOZE, DOZE_SUSPEND, VR, ON_SUSPEND, UNKNOWN
+3. **Screen Timeout**: The system-wide screen timeout setting is displayed in the app bar
+   - Shows how long before displays turn off due to inactivity
+   - Note: This is a system-wide setting, not per-display
 
 ## Technical Details
 
@@ -80,9 +110,13 @@ app/src/main/java/cc/inoki/screenmaster/
 ### Key Components
 
 #### DisplayHelper
-Provides access to display information using Android's DisplayManager:
-- `getAllDisplays()`: Returns list of all available displays
+Provides access to display information using Android's DisplayManager and Settings:
+- `getAllDisplays()`: Returns list of all available displays with their current state
 - `getDisplay(displayId)`: Retrieves specific display by ID
+- `isDisplayOn(displayId)`: Checks if a display is currently powered on
+- `getDisplayStateString(displayId)`: Returns detailed state string (ON/OFF/DOZE/etc.)
+- `getScreenTimeout()`: Returns the system-wide screen timeout in milliseconds
+- `getScreenTimeoutFormatted()`: Returns formatted screen timeout (e.g., "30s", "2m", "5m 30s")
 
 #### AppHelper
 Manages application discovery and launching:
@@ -178,6 +212,12 @@ The project follows the official Kotlin coding conventions and uses:
 - The app requests `QUERY_ALL_PACKAGES` which may require user consent on some devices
 - This permission is necessary to list all installed apps
 
+### Display State Monitoring
+
+- The app can monitor display states (ON/OFF/DOZE/etc.) using Android's public Display API
+- Display power control is NOT available through public Android APIs
+- State information is read-only and refreshes when you navigate back to the screen list
+
 ## License
 
 This project is provided as-is for educational and personal use.
@@ -188,7 +228,15 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 
 ## Version History
 
-### 1.0.0 (Current)
+### 1.1.0 (Current)
+- Added display state monitoring (ON/OFF/DOZE/etc. detection)
+- Added detailed display state information
+- Added screen timeout display in the app bar
+- Added toast notifications for app launches with display ID
+- Improved display card UI with state indicators
+- Documented Android API limitations for display power control
+
+### 1.0.0
 - Initial release
 - Display detection and listing
 - App discovery and launching

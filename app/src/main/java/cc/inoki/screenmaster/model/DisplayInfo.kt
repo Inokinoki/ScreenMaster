@@ -7,5 +7,6 @@ data class DisplayInfo(
     val height: Int,
     val densityDpi: Int,
     val refreshRate: Float,
-    val isDefault: Boolean
+    val isDefault: Boolean,
+    val isOn: Boolean = true
 )

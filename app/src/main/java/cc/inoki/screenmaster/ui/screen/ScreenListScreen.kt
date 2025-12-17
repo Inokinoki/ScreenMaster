@@ -1,5 +1,6 @@
 package cc.inoki.screenmaster.ui.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,10 +26,22 @@ fun ScreenListScreen(
     val displayHelper = remember { DisplayHelper(context) }
     val displays = remember { mutableStateOf(displayHelper.getAllDisplays()) }
 
+    val refreshDisplays = {
+        displays.value = displayHelper.getAllDisplays()
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Available Screens") },
+                title = {
+                    Column {
+                        Text("Available Screens")
+                        Text(
+                            text = "Screen Timeout: ${displayHelper.getScreenTimeoutFormatted()}",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -60,7 +73,9 @@ fun ScreenListScreen(
                 items(displays.value) { display ->
                     DisplayCard(
                         displayInfo = display,
-                        onClick = { onScreenSelected(display.id) }
+                        displayHelper = displayHelper,
+                        onClick = { onScreenSelected(display.id) },
+                        onRefresh = refreshDisplays
                     )
                 }
             }
@@ -71,76 +86,92 @@ fun ScreenListScreen(
 @Composable
 fun DisplayCard(
     displayInfo: DisplayInfo,
-    onClick: () -> Unit
+    displayHelper: DisplayHelper,
+    onClick: () -> Unit,
+    onRefresh: () -> Unit
 ) {
+    val context = LocalContext.current
+
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
+            .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(16.dp)
         ) {
-            Icon(
-                imageVector = Icons.Default.Build,
-                contentDescription = "Display",
-                modifier = Modifier.size(48.dp),
-                tint = MaterialTheme.colorScheme.primary
-            )
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Column(
-                modifier = Modifier.weight(1f)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(onClick = onClick),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+                Icon(
+                    imageVector = Icons.Default.Build,
+                    contentDescription = "Display",
+                    modifier = Modifier.size(48.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Column(
+                    modifier = Modifier.weight(1f)
                 ) {
-                    Text(
-                        text = displayInfo.name,
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    if (displayInfo.isDefault) {
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Icon(
-                            imageVector = Icons.Default.Star,
-                            contentDescription = "Default Display",
-                            modifier = Modifier.size(16.dp),
-                            tint = MaterialTheme.colorScheme.tertiary
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = displayInfo.name,
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
+                        if (displayInfo.isDefault) {
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Icon(
+                                imageVector = Icons.Default.Star,
+                                contentDescription = "Default Display",
+                                modifier = Modifier.size(16.dp),
+                                tint = MaterialTheme.colorScheme.tertiary
+                            )
+                        }
                     }
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    Text(
+                        text = "Display ID: ${displayInfo.id}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    Text(
+                        text = "Resolution: ${displayInfo.width} x ${displayInfo.height}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    Text(
+                        text = "Refresh Rate: ${"%.1f".format(displayInfo.refreshRate)} Hz",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    Text(
+                        text = "Density: ${displayInfo.densityDpi} dpi",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    val stateText = displayHelper.getDisplayStateString(displayInfo.id)
+                    Text(
+                        text = "State: $stateText",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = if (displayInfo.isOn) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+                    )
                 }
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = "Display ID: ${displayInfo.id}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-
-                Text(
-                    text = "Resolution: ${displayInfo.width} x ${displayInfo.height}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-
-                Text(
-                    text = "Refresh Rate: ${"%.1f".format(displayInfo.refreshRate)} Hz",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-
-                Text(
-                    text = "Density: ${displayInfo.densityDpi} dpi",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
             }
         }
     }
