@@ -36,10 +36,6 @@ fun ScreenListScreen(
                 title = {
                     Column {
                         Text("Available Screens")
-                        Text(
-                            text = "Screen Timeout: ${displayHelper.getScreenTimeoutFormatted()}",
-                            style = MaterialTheme.typography.bodySmall
-                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
