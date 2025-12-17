@@ -8,5 +8,10 @@ data class DisplayInfo(
     val densityDpi: Int,
     val refreshRate: Float,
     val isDefault: Boolean,
-    val isOn: Boolean = true
+    val isOn: Boolean = true,
+    val deviceManufacturer: String = "",
+    val deviceModel: String = "",
+    val displayType: String = "",
+    val hdrCapabilities: String = "",
+    val rotation: String = ""
 )

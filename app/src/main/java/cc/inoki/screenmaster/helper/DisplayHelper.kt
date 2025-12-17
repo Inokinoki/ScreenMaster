@@ -2,9 +2,11 @@ package cc.inoki.screenmaster.helper
 
 import android.content.Context
 import android.hardware.display.DisplayManager
+import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
 import android.view.Display
+import android.view.Surface
 import cc.inoki.screenmaster.model.DisplayInfo
 
 class DisplayHelper(private val context: Context) {
@@ -17,14 +19,62 @@ class DisplayHelper(private val context: Context) {
         return displays.mapIndexed { index, display ->
             DisplayInfo(
                 id = display.displayId,
-                name = display.name ?: "Display ${index + 1}",
+                name = "[" + getDisplayType(display) + "] " + (display.name ?: "Display ${index + 1}"),
                 width = display.mode.physicalWidth,
                 height = display.mode.physicalHeight,
                 densityDpi = context.resources.displayMetrics.densityDpi,
                 refreshRate = display.refreshRate,
                 isDefault = display.displayId == Display.DEFAULT_DISPLAY,
-                isOn = isDisplayOn(display.displayId)
+                isOn = isDisplayOn(display.displayId),
+                deviceManufacturer = Build.MANUFACTURER,
+                deviceModel = Build.MODEL,
+                displayType = getDisplayType(display),
+                hdrCapabilities = getHdrCapabilities(display),
+                rotation = getRotation(display)
             )
+        }
+    }
+
+    private fun getDisplayType(display: Display): String {
+        return when {
+            display.displayId == Display.DEFAULT_DISPLAY -> "Built-in"
+            else -> "External"
+        }
+    }
+
+    private fun getHdrCapabilities(display: Display): String {
+        return try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                val hdrCapabilities = display.hdrCapabilities
+                if (hdrCapabilities != null && hdrCapabilities.supportedHdrTypes.isNotEmpty()) {
+                    val types = hdrCapabilities.supportedHdrTypes.map { type ->
+                        when (type) {
+                            Display.HdrCapabilities.HDR_TYPE_DOLBY_VISION -> "Dolby Vision"
+                            Display.HdrCapabilities.HDR_TYPE_HDR10 -> "HDR10"
+                            Display.HdrCapabilities.HDR_TYPE_HLG -> "HLG"
+                            Display.HdrCapabilities.HDR_TYPE_HDR10_PLUS -> "HDR10+"
+                            else -> "HDR"
+                        }
+                    }
+                    types.joinToString(", ")
+                } else {
+                    "None"
+                }
+            } else {
+                "N/A"
+            }
+        } catch (e: Exception) {
+            "N/A"
+        }
+    }
+
+    private fun getRotation(display: Display): String {
+        return when (display.rotation) {
+            Surface.ROTATION_0 -> "0°"
+            Surface.ROTATION_90 -> "90°"
+            Surface.ROTATION_180 -> "180°"
+            Surface.ROTATION_270 -> "270°"
+            else -> "Unknown"
         }
     }
 

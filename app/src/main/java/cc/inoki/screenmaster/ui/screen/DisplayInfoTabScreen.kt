@@ -113,24 +113,50 @@ fun DisplayInfoCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
-                Text(
-                    text = "Refresh Rate: ${"%.1f".format(displayInfo.refreshRate)} Hz",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-
-                Text(
-                    text = "Density: ${displayInfo.densityDpi} dpi",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-
                 val stateText = displayHelper.getDisplayStateString(displayInfo.id)
                 Text(
                     text = "State: $stateText",
                     style = MaterialTheme.typography.bodySmall,
                     color = if (displayInfo.isOn) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
                 )
+
+                Spacer(modifier = Modifier.height(8.dp))
+                HorizontalDivider()
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "Device Information",
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = "Manufacturer: ${displayInfo.deviceManufacturer}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                Text(
+                    text = "Model: ${displayInfo.deviceModel}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                Text(
+                    text = "Rotation: ${displayInfo.rotation}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                if (displayInfo.hdrCapabilities != "N/A" && displayInfo.hdrCapabilities != "None") {
+                    Text(
+                        text = "HDR: ${displayInfo.hdrCapabilities}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.tertiary
+                    )
+                }
             }
         }
     }
