@@ -1,0 +1,38 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">螢幕大師</string>
+
+    <!-- Tab Names -->
+    <string name="tab_apps">應用程式</string>
+    <string name="tab_displays">顯示器</string>
+
+    <!-- Search -->
+    <string name="search_apps_hint">搜尋應用程式…</string>
+    <string name="search_content_description">搜尋</string>
+    <string name="clear_content_description">清除</string>
+
+    <!-- App List -->
+    <string name="loading_applications">載入應用程式中…</string>
+    <string name="no_launchable_apps">未找到可啟動的應用程式</string>
+    <string name="refresh">重新整理</string>
+    <string name="no_apps_match">沒有應用程式符合 \"%1$s\"</string>
+    <string name="launching_app_toast">在 %2$s（ID：%3$d）上啟動 %1$s</string>
+
+    <!-- Display Selection Dialog -->
+    <string name="select_display">選擇顯示器</string>
+    <string name="cancel">取消</string>
+    <string name="default_display">預設</string>
+
+    <!-- Display Info -->
+    <string name="no_displays_found">未找到顯示器。這不可能！</string>
+    <string name="display_content_description">顯示器</string>
+    <string name="default_display_content_description">預設顯示器</string>
+    <string name="display_id">顯示器 ID：%1$d</string>
+    <string name="resolution">解析度：%1$d x %2$d</string>
+    <string name="state">狀態：%1$s</string>
+    <string name="device_information">裝置資訊</string>
+    <string name="manufacturer">製造商：%1$s</string>
+    <string name="model">型號：%1$s</string>
+    <string name="rotation">旋轉：%1$s</string>
+    <string name="hdr">HDR：%1$s</string>
+</resources>

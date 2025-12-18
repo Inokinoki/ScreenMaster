@@ -10,7 +10,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import cc.inoki.screenmaster.R
 import cc.inoki.screenmaster.helper.DisplayHelper
 import cc.inoki.screenmaster.model.DisplayInfo
 
@@ -31,7 +33,7 @@ fun DisplayInfoTabScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "No displays found. That's not possible!",
+                    text = stringResource(R.string.no_displays_found),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -70,7 +72,7 @@ fun DisplayInfoCard(
         ) {
             Icon(
                 imageVector = Icons.Default.Build,
-                contentDescription = "Display",
+                contentDescription = stringResource(R.string.display_content_description),
                 modifier = Modifier.size(48.dp),
                 tint = MaterialTheme.colorScheme.primary
             )
@@ -92,7 +94,7 @@ fun DisplayInfoCard(
                         Spacer(modifier = Modifier.width(8.dp))
                         Icon(
                             imageVector = Icons.Default.Star,
-                            contentDescription = "Default Display",
+                            contentDescription = stringResource(R.string.default_display_content_description),
                             modifier = Modifier.size(16.dp),
                             tint = MaterialTheme.colorScheme.tertiary
                         )
@@ -102,20 +104,20 @@ fun DisplayInfoCard(
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = "Display ID: ${displayInfo.id}",
+                    text = stringResource(R.string.display_id, displayInfo.id),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Text(
-                    text = "Resolution: ${displayInfo.width} x ${displayInfo.height}",
+                    text = stringResource(R.string.resolution, displayInfo.width, displayInfo.height),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 val stateText = displayHelper.getDisplayStateString(displayInfo.id)
                 Text(
-                    text = "State: $stateText",
+                    text = stringResource(R.string.state, stateText),
                     style = MaterialTheme.typography.bodySmall,
                     color = if (displayInfo.isOn) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
                 )
@@ -125,7 +127,7 @@ fun DisplayInfoCard(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Device Information",
+                    text = stringResource(R.string.device_information),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -133,26 +135,26 @@ fun DisplayInfoCard(
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = "Manufacturer: ${displayInfo.deviceManufacturer}",
+                    text = stringResource(R.string.manufacturer, displayInfo.deviceManufacturer),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Text(
-                    text = "Model: ${displayInfo.deviceModel}",
+                    text = stringResource(R.string.model, displayInfo.deviceModel),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Text(
-                    text = "Rotation: ${displayInfo.rotation}",
+                    text = stringResource(R.string.rotation, displayInfo.rotation),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 if (displayInfo.hdrCapabilities != "N/A" && displayInfo.hdrCapabilities != "None") {
                     Text(
-                        text = "HDR: ${displayInfo.hdrCapabilities}",
+                        text = stringResource(R.string.hdr, displayInfo.hdrCapabilities),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.tertiary
                     )

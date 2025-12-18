@@ -17,7 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import cc.inoki.screenmaster.R
 import androidx.core.graphics.drawable.toBitmap
 import cc.inoki.screenmaster.helper.AppHelper
 import cc.inoki.screenmaster.model.AppInfo
@@ -58,14 +60,14 @@ fun AppListTabScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            placeholder = { Text("Search apps...") },
+            placeholder = { Text(stringResource(R.string.search_apps_hint)) },
             leadingIcon = {
-                Icon(Icons.Default.Search, contentDescription = "Search")
+                Icon(Icons.Default.Search, contentDescription = stringResource(R.string.search_content_description))
             },
             trailingIcon = {
                 if (searchQuery.value.isNotEmpty()) {
                     IconButton(onClick = { searchQuery.value = "" }) {
-                        Icon(Icons.Default.Clear, contentDescription = "Clear")
+                        Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.clear_content_description))
                     }
                 }
             },
@@ -90,7 +92,7 @@ fun AppListTabScreen(
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Text(
-                            text = if (isLoading) "Loading applications..." else "No launchable apps found",
+                            text = if (isLoading) stringResource(R.string.loading_applications) else stringResource(R.string.no_launchable_apps),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -98,7 +100,7 @@ fun AppListTabScreen(
                             Button(onClick = onRefresh) {
                                 Icon(Icons.Default.Refresh, contentDescription = null)
                                 Spacer(Modifier.width(8.dp))
-                                Text("Refresh")
+                                Text(stringResource(R.string.refresh))
                             }
                         }
                     }
@@ -119,7 +121,7 @@ fun AppListTabScreen(
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            text = "No apps match \"${searchQuery.value}\"",
+                            text = stringResource(R.string.no_apps_match, searchQuery.value),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -153,7 +155,7 @@ fun AppListTabScreen(
                         appHelper.launchApp(app.packageName, display.id)
                         Toast.makeText(
                             context,
-                            "Launching ${app.appName} on ${display.name} (ID: ${display.id})",
+                            context.getString(R.string.launching_app_toast, app.appName, display.name, display.id),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -219,7 +221,7 @@ fun DisplaySelectionDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Select Display") },
+        title = { Text(stringResource(R.string.select_display)) },
         text = {
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -252,7 +254,7 @@ fun DisplaySelectionDialog(
                                         Spacer(modifier = Modifier.width(4.dp))
                                         Icon(
                                             imageVector = Icons.Default.Star,
-                                            contentDescription = "Default",
+                                            contentDescription = stringResource(R.string.default_display),
                                             modifier = Modifier.size(16.dp),
                                             tint = MaterialTheme.colorScheme.primary
                                         )
@@ -272,7 +274,7 @@ fun DisplaySelectionDialog(
         confirmButton = {},
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.cancel))
             }
         }
     )

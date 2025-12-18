@@ -1,0 +1,38 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">屏幕大师</string>
+
+    <!-- Tab Names -->
+    <string name="tab_apps">应用</string>
+    <string name="tab_displays">显示器</string>
+
+    <!-- Search -->
+    <string name="search_apps_hint">搜索应用…</string>
+    <string name="search_content_description">搜索</string>
+    <string name="clear_content_description">清除</string>
+
+    <!-- App List -->
+    <string name="loading_applications">加载应用中…</string>
+    <string name="no_launchable_apps">未找到可启动的应用</string>
+    <string name="refresh">刷新</string>
+    <string name="no_apps_match">没有应用匹配 \"%1$s\"</string>
+    <string name="launching_app_toast">在 %2$s（ID：%3$d）上启动 %1$s</string>
+
+    <!-- Display Selection Dialog -->
+    <string name="select_display">选择显示器</string>
+    <string name="cancel">取消</string>
+    <string name="default_display">默认</string>
+
+    <!-- Display Info -->
+    <string name="no_displays_found">未找到显示器。这不可能！</string>
+    <string name="display_content_description">显示器</string>
+    <string name="default_display_content_description">默认显示器</string>
+    <string name="display_id">显示器 ID：%1$d</string>
+    <string name="resolution">分辨率：%1$d x %2$d</string>
+    <string name="state">状态：%1$s</string>
+    <string name="device_information">设备信息</string>
+    <string name="manufacturer">制造商：%1$s</string>
+    <string name="model">型号：%1$s</string>
+    <string name="rotation">旋转：%1$s</string>
+    <string name="hdr">HDR：%1$s</string>
+</resources>

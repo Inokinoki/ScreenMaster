@@ -1,3 +1,38 @@
 <resources>
-    <string name="app_name">ScreenMaster</string>
+    <!-- App Name -->
+    <string name="app_name">Screen Master</string>
+
+    <!-- Tab Names -->
+    <string name="tab_apps">Apps</string>
+    <string name="tab_displays">Displays</string>
+
+    <!-- Search -->
+    <string name="search_apps_hint">Search apps…</string>
+    <string name="search_content_description">Search</string>
+    <string name="clear_content_description">Clear</string>
+
+    <!-- App List -->
+    <string name="loading_applications">Loading applications…</string>
+    <string name="no_launchable_apps">No launchable apps found</string>
+    <string name="refresh">Refresh</string>
+    <string name="no_apps_match">No apps match \"%1$s\"</string>
+    <string name="launching_app_toast">Launching %1$s on %2$s (ID: %3$d)</string>
+
+    <!-- Display Selection Dialog -->
+    <string name="select_display">Select Display</string>
+    <string name="cancel">Cancel</string>
+    <string name="default_display">Default</string>
+
+    <!-- Display Info -->
+    <string name="no_displays_found">No displays found. That\'s not possible!</string>
+    <string name="display_content_description">Display</string>
+    <string name="default_display_content_description">Default Display</string>
+    <string name="display_id">Display ID: %1$d</string>
+    <string name="resolution">Resolution: %1$d x %2$d</string>
+    <string name="state">State: %1$s</string>
+    <string name="device_information">Device Information</string>
+    <string name="manufacturer">Manufacturer: %1$s</string>
+    <string name="model">Model: %1$s</string>
+    <string name="rotation">Rotation: %1$s</string>
+    <string name="hdr">HDR: %1$s</string>
 </resources>

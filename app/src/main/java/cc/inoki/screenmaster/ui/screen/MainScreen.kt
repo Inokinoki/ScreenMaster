@@ -8,6 +8,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import cc.inoki.screenmaster.R
 import cc.inoki.screenmaster.helper.AppHelper
 import cc.inoki.screenmaster.helper.DisplayHelper
 import cc.inoki.screenmaster.model.AppInfo
@@ -55,7 +57,7 @@ fun MainScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Screen Master") },
+                title = { Text(stringResource(R.string.app_name)) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -75,14 +77,14 @@ fun MainScreen() {
                 Tab(
                     selected = selectedTab == 0,
                     onClick = { selectedTab = 0 },
-                    text = { Text("Apps") },
-                    icon = { Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Apps") }
+                    text = { Text(stringResource(R.string.tab_apps)) },
+                    icon = { Icon(Icons.AutoMirrored.Filled.List, contentDescription = stringResource(R.string.tab_apps)) }
                 )
                 Tab(
                     selected = selectedTab == 1,
                     onClick = { selectedTab = 1 },
-                    text = { Text("Displays") },
-                    icon = { Icon(Icons.Default.Build, contentDescription = "Displays") }
+                    text = { Text(stringResource(R.string.tab_displays)) },
+                    icon = { Icon(Icons.Default.Build, contentDescription = stringResource(R.string.tab_displays)) }
                 )
             }
 
