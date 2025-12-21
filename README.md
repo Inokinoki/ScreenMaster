@@ -230,15 +230,13 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 
 ## Version History
 
-### 1.1.0 (Current)
+### 1.0.0 (Current)
 - Added display state monitoring (ON/OFF/DOZE/etc. detection)
 - Added detailed display state information
 - Added screen timeout display in the app bar
 - Added toast notifications for app launches with display ID
 - Improved display card UI with state indicators
 - Documented Android API limitations for display power control
-
-### 1.0.0
 - Initial release
 - Display detection and listing
 - App discovery and launching
