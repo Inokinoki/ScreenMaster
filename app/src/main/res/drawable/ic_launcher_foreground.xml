@@ -7,61 +7,61 @@
     <!-- Back tablet screen (shadow/depth) -->
     <path
         android:fillColor="#90CAF9"
-        android:pathData="M38,30 Q38,28 40,28 L72,28 Q74,28 74,30 L74,62 Q74,64 72,64 L40,64 Q38,64 38,62 Z" />
+        android:pathData="M42,30 Q42,28 44,28 L76,28 Q78,28 78,30 L78,62 Q78,64 76,64 L44,64 Q42,64 42,62 Z" />
 
     <!-- Middle tablet screen -->
     <path
         android:fillColor="#BBDEFB"
-        android:pathData="M34,36 Q34,34 36,34 L68,34 Q70,34 70,36 L70,68 Q70,70 68,70 L36,70 Q34,70 34,68 Z" />
+        android:pathData="M38,36 Q38,34 40,34 L72,34 Q74,34 74,36 L74,68 Q74,70 72,70 L40,70 Q38,70 38,68 Z" />
 
     <!-- Middle tablet border -->
     <path
         android:fillColor="#00000000"
         android:strokeColor="#FFFFFF"
         android:strokeWidth="2"
-        android:pathData="M34,36 Q34,34 36,34 L68,34 Q70,34 70,36 L70,68 Q70,70 68,70 L36,70 Q34,70 34,68 Z" />
+        android:pathData="M38,36 Q38,34 40,34 L72,34 Q74,34 74,36 L74,68 Q74,70 72,70 L40,70 Q38,70 38,68 Z" />
 
     <!-- Front tablet screen -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M30,42 Q30,40 32,40 L64,40 Q66,40 66,42 L66,74 Q66,76 64,76 L32,76 Q30,76 30,74 Z" />
+        android:pathData="M34,42 Q34,40 36,40 L68,40 Q70,40 70,42 L70,74 Q70,76 68,76 L36,76 Q34,76 34,74 Z" />
 
     <!-- Front tablet border -->
     <path
         android:fillColor="#00000000"
         android:strokeColor="#FFFFFF"
         android:strokeWidth="2.5"
-        android:pathData="M30,42 Q30,40 32,40 L64,40 Q66,40 66,42 L66,74 Q66,76 64,76 L32,76 Q30,76 30,74 Z" />
+        android:pathData="M34,42 Q34,40 36,40 L68,40 Q70,40 70,42 L70,74 Q70,76 68,76 L36,76 Q34,76 34,74 Z" />
 
     <!-- Front tablet screen content area -->
     <path
         android:fillColor="#E3F2FD"
-        android:pathData="M33,44 L63,44 L63,72 L33,72 Z" />
+        android:pathData="M37,44 L67,44 L67,72 L37,72 Z" />
 
     <!-- Screen content - status bar -->
     <path
         android:fillColor="#2196F3"
-        android:pathData="M33,44 L63,44 L63,47 L33,47 Z" />
+        android:pathData="M37,44 L67,44 L67,47 L37,47 Z" />
 
     <!-- Screen content - app icons row 1 -->
     <path
         android:fillColor="#1976D2"
-        android:pathData="M36,51 L42,51 L42,57 L36,57 Z" />
+        android:pathData="M40,51 L46,51 L46,57 L40,57 Z" />
     <path
         android:fillColor="#1976D2"
-        android:pathData="M45,51 L51,51 L51,57 L45,57 Z" />
+        android:pathData="M49,51 L55,51 L55,57 L49,57 Z" />
     <path
         android:fillColor="#1976D2"
-        android:pathData="M54,51 L60,51 L60,57 L54,57 Z" />
+        android:pathData="M58,51 L64,51 L64,57 L58,57 Z" />
 
     <!-- Screen content - app icons row 2 -->
     <path
         android:fillColor="#1976D2"
-        android:pathData="M36,60 L42,60 L42,66 L36,66 Z" />
+        android:pathData="M40,60 L46,60 L46,66 L40,66 Z" />
     <path
         android:fillColor="#1976D2"
-        android:pathData="M45,60 L51,60 L51,66 L45,66 Z" />
+        android:pathData="M49,60 L55,60 L55,66 L49,66 Z" />
     <path
         android:fillColor="#1976D2"
-        android:pathData="M54,60 L60,60 L60,66 L54,66 Z" />
+        android:pathData="M58,60 L64,60 L64,66 L58,66 Z" />
 </vector>
